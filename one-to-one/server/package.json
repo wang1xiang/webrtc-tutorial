@@ -1,0 +1,15 @@
+{
+  "name": "webrtc-demo",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "serve": "node serve/main.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "log4js": "^6.9.1",
+    "socket.io": "^4.7.2"
+  }
+}

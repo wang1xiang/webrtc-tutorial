@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "unplugin-vue-components": "^0.25.1"
+  }
+}
