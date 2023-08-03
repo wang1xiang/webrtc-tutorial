@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>简单信令服务器</title>
+</head>
+<body>
+  <div>
+    <label>用户名: </label>
+    <input type=text id="username"></input>
+    <label>房间: </label>
+    <input type=text id="room"></input>
+    <button id="connect">连接</button>
+    <button id="leave" disabled>离开</button>
+  </div>
+  <div>
+    <label>收到消息: </label><br>
+    <textarea disabled style="line-height: 1.5;" id="output" rows="10" cols="60"></textarea>
+  </div>
+  <div>
+    <label>发送消息: </label><br>
+    <textarea disabled id="input" rows="3" cols="60"></textarea>
+  </div>
+  <div>
+    <button id="send">发送</button>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+  <script src="./client.js"></script>
+</body>
+</html>
