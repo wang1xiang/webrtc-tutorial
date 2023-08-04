@@ -23,6 +23,7 @@ const handleJoin = (user) => {
   showRTCVideo.value = true
   userInfo = user
 }
+// 等待本地视频初始化完成后发送信令服务
 const streamSuccess = ({ stream, remoteVideoRef }) => {
   const info = { ...userInfo, localPc, remotePc, localStream: stream, remoteVideoRef }
   socket = initSocket(info)
