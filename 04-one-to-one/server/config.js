@@ -9,9 +9,9 @@ import { Server as IO } from "socket.io";
 export default function initApp() {
   let app = express();
   let http_server = http.createServer(app);
-  http_server.listen(80);
+  http_server.listen(3333);
   let io = new IO(http_server, {
-    path: "/",
+    path: "/rtc",
     // 允许跨域访问
     cors: {
       origin: "*"

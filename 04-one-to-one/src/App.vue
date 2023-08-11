@@ -13,8 +13,6 @@ import Login from './components/Login.vue'
 import { ref, watch } from 'vue'
 import initSocket from './socket'
 
-let localPc // 本地WebRTC终端
-let remotePc // 对方WebRTC终端
 let userInfo = {}
 let socket 
 
@@ -25,7 +23,7 @@ const handleJoin = (user) => {
 }
 // 等待本地视频初始化完成后发送信令服务
 const streamSuccess = ({ stream, remoteVideoRef }) => {
-  const info = { ...userInfo, localPc, remotePc, localStream: stream, remoteVideoRef }
+  const info = { ...userInfo, localStream: stream, remoteVideoRef }
   socket = initSocket(info)
 }
 const leave = () => {
