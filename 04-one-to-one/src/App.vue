@@ -10,8 +10,9 @@
 import 'ant-design-vue/dist/reset.css'
 import RTCVideo from './components/RTCVideo.vue'
 import Login from './components/Login.vue'
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 import initSocket from './socket'
+import adapter from 'webrtc-adapter';
 
 let userInfo = {}
 let socket 

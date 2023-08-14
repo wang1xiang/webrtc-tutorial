@@ -11,7 +11,7 @@ const initSocket = ({
 }) => {
   let localPc, remotePc
   // 连接server 携带username和room
-  const socket = io('http://localhost:80', {
+  const socket = io('http://localhost:3333', {
     path: "/rtc",
     query: { username, room },
   }).connect()

@@ -13,7 +13,8 @@
     "@ant-design/icons-vue": "^6.1.0",
     "ant-design-vue": "^4.0.0",
     "socket.io-client": "^4.7.2",
-    "vue": "^3.2.47"
+    "vue": "^3.2.47",
+    "webrtc-adapter": "^8.2.3"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.1.0",

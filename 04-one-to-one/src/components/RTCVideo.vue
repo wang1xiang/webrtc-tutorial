@@ -64,7 +64,7 @@ const initVideo = async (video) => {
     emits('streamSuccess', { stream, remoteVideoRef })
     video.play()
   } catch (e) {
-    console.log(`${settings.video} error: `, e)
+    console.log(`error: `, e)
   }
 }
 </script>
