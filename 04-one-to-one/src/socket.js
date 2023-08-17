@@ -1,18 +1,14 @@
 import { rtcConfig } from './constants'
 import { io } from 'socket.io-client'
 import { SOCKET_ON_RTC, SOCKET_EMIT } from './enum'
+import openDataChannel from './dataChannel'
 
 // 开始接听rtc协议连接
-const initSocket = ({
-  username,
-  room,
-  remoteVideoRef,
-  localStream,
-}) => {
+const initSocket = ({ username, room, remoteVideoRef, localStream }) => {
   let localPc
   // 连接server 携带username和room
   const socket = io('http://localhost:3333', {
-    path: "/rtc",
+    path: '/rtc',
     query: { username, room },
   }).connect()
 
@@ -27,9 +23,9 @@ const initSocket = ({
     if (username === res[0]?.username) sendOffer()
   })
 
-  socket.on("close", (error) => {
-    console.log(error);
-  });
+  socket.on('close', (error) => {
+    console.log(error)
+  })
 
   // 接收offer创建answer转发
   socket.on(SOCKET_ON_RTC.OFFER, async (offer) => {
@@ -49,10 +45,10 @@ const initSocket = ({
     if (!remoteVideoRef.value) return
     let video = remoteVideoRef.value.$el
     localPc.ontrack = (e) => {
-      console.log(e, e.streams[0]);
       video.srcObject = e.streams[0]
       video.oncanplay = () => video.play()
     }
+
     // 添加ice
     await localPc.addIceCandidate(candidate)
   })
@@ -60,6 +56,7 @@ const initSocket = ({
   const sendOffer = async () => {
     // 初始化当前视频
     localPc = new RTCPeerConnection(rtcConfig)
+    openDataChannel(localPc, username)
     // 添加RTC流
     localStream.getTracks().forEach((track) => {
       localPc.addTrack(track, localStream)
@@ -71,18 +68,19 @@ const initSocket = ({
       if (event.candidate)
         socket.emit(SOCKET_ON_RTC.CANDIDATE, room, {
           pc: 'local',
-          candidate: event.candidate
+          candidate: event.candidate,
         })
     }
+
     // 发起方：创建offer(成功将offer的设置当前流，并发送给接收方)
     let offer = await localPc.createOffer()
     // 建立连接，此时就会触发onicecandidate，然后注册ontrack
     await localPc.setLocalDescription(offer)
     socket.emit(SOCKET_ON_RTC.OFFER, room, offer)
-
   }
   const sendAnswer = async (offer) => {
     localPc = new RTCPeerConnection(rtcConfig)
+    openDataChannel(localPc, username)
     // 添加RTC流
     localStream.getTracks().forEach((track) => {
       localPc.addTrack(track, localStream)
@@ -94,7 +92,7 @@ const initSocket = ({
       if (event.candidate)
         socket.emit(SOCKET_ON_RTC.CANDIDATE, room, {
           pc: 'remote',
-          candidate: event.candidate
+          candidate: event.candidate,
         })
     }
     await localPc.setRemoteDescription(offer)

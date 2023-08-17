@@ -1,11 +1,12 @@
 <template>
-  <div class="video">
+  <div class="rtc-video">
     <section class="local-video">
       <Video ref="localVideoRef"></Video>
     </section>
     <section class="remote-video">
       <Video ref="remoteVideoRef"></Video>
     </section>
+    <RTCDataChannel v-show="showDataChannel" />
   </div>
   <div class="footer">
     <button className="audio">
@@ -22,6 +23,13 @@
         @onChange="onVideoChange"
       />
     </button>
+    <button className="message">
+      <TrackToggle
+        source="message"
+        :initialState="true"
+        @onChange="onMessageShow"
+      />
+    </button>
     <button className="leave">
       <TrackToggle source="leave" :initialState="true" @onChange="onLeave" />
     </button>
@@ -31,6 +39,7 @@
 <script setup>
 import Video from './Video.vue'
 import { ref, onMounted } from 'vue'
+import RTCDataChannel from './RTCDataChannel.vue'
 import TrackToggle from './TrackToggle.vue'
 
 const emits = defineEmits(['streamSuccess', 'leave'])
@@ -45,6 +54,9 @@ const onVideoChange = (enabled) => {
   videoEnabled.value = enabled
   initVideo(localVideoRef.value.$el)
 }
+
+const showDataChannel = ref(false)
+const onMessageShow = () => (showDataChannel.value = !showDataChannel.value)
 const onLeave = () => emits('leave')
 const remoteVideoRef = ref(null)
 
@@ -70,17 +82,20 @@ const initVideo = async (video) => {
 </script>
 
 <style lang="css" scoped>
-.video {
+.rtc-video {
   display: flex;
   justify-content: center;
+  width: 100%;
+  height: 400px;
+  padding: 20px;
 }
 .local-video,
 .remote-video {
-  width: 100%;
+  width: 30%;
   height: 100%;
 }
 .remote-video {
-  margin-left: 12px;
+  margin: 0 12px;
 }
 .footer {
   height: 100px;
@@ -89,6 +104,7 @@ const initVideo = async (video) => {
 
 .audio,
 .video,
+.message,
 .leave {
   position: relative;
   display: inline-flex;

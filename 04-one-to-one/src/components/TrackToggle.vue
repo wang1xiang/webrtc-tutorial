@@ -9,6 +9,7 @@ import audioDisabled from '../assets/audio-disabled.svg'
 import camera from '../assets/camera.svg'
 import cameraDisabled from '../assets/camera-disabled.svg'
 import leave from '../assets/leave.svg'
+import message from '../assets/message.svg'
 const props = defineProps({
   source: String,
   initialState: Boolean,
@@ -29,6 +30,8 @@ const src = computed(() => {
       return enabled.value ? camera : cameraDisabled
     case 'leave':
       return leave
+    case 'message':
+      return message
     default:
       return undefined
   }
