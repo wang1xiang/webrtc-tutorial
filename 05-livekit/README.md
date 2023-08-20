@@ -13,4 +13,6 @@ https://github.com/livekit-examples/meet#readme
    ![livekitUrl.png](./assets/livekitUrl.png)
    `NEXT_PUBLIC_LK_TOKEN_ENDPOINT=/api/token` 是获取 token 的请求接口。
 
+   **LIVEKIT_URL和token用于连接房间，token 是唯一的，如果多个参与者使用相同的 token 连接，则较早的参与者将与房间断开连接。**
+
 4. 运行 `yarn dev` 后，打开[http://localhost:3000](http://localhost:3000) 预览
